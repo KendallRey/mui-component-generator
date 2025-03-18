@@ -8,7 +8,28 @@ const componentTemplate = fs.readFileSync(
   'utf-8'
 )
 
-const COMPONENTS = ["Autocomplete", "Button", "ButtonGroup", "Checkbox", "Fab", "RadioGroup", "Rating"]
+const COMPONENTS = [
+  "Autocomplete", "Button", "IconButton", "ButtonGroup", "Checkbox", "Fab", "RadioGroup", "Rating",
+  "Select", "Slider", "Switch", "TextField", "ToggleButtonGroup", 
+
+  "FormControl", "FormControlLabel", "InputLabel",
+  
+  "Avatar", "Badge", "Chip", "Divider", "List", "ListItem", "ListItemButton", "ListItemAvatar", "ListItemIcon", "ListItemText",
+  "TableContainer", "Table", "TableHead", "TableRow", "TableCell", "TableBody",
+  "Tooltip", "Typography",
+
+  "Alert", "Backdrop", "Dialog", "DialogTitle", "CircularProgress", "Skeleton", "Snackbar", "SnackbarContent",
+
+  "Accordion", "AccordionActions", "AccordionSummary", "AccordionDetails", "AppBar", "Toolbar", "Card",
+  "CardActions", "CardContent", "Paper",
+
+  "BottomNavigation", "BottomNavigationAction", "Breadcrumbs", "Drawer", "Link", "Menu", "MenuItem", "Pagination",
+  "SpeedDial", "SpeedDialIcon", "SpeedDialAction", "Step", "Stepper", "StepLabel", "Tab", "Tabs",
+
+  "Box", "Container", "Stack", "ImageList", "ImageListItem",
+
+  "Modal", "Popover", "Popper", "Collapse"
+]
 
 const componentsDir = path.join(__dirname, 'components');
 
