@@ -19,6 +19,22 @@
     "email": "kendallreymozo@gmail.com"
   },
   "license": "ISC",
+  "keywords": [
+    "kenrey-project",
+    "kenrey-component",
+    "kenrey-component-generator",
+    "component-generator"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KendallRey/mui-component-generator.git"
+  },
+  "files": [
+    "index.js",
+    "index.ts",
+    "LICENSE",
+    "README.md"
+  ],
   "devDependencies": {
     "@types/mustache": "^4.2.5",
     "@types/node": "^22.13.10",
