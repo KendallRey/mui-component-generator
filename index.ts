@@ -3,38 +3,102 @@ import * as path from 'path'
 
 import Mustache from 'mustache'
 
-const styled = process.argv.find((val) => val === '--styled') ? 'styled-' : '';
-const memoized = process.argv.find((val) => val === '--memoized') ? 'memoized-' : '';
+const styled = process.argv.find((val) => val === '--styled') ? 'styled-' : ''
+const memoized = process.argv.find((val) => val === '--memoized') ? 'memoized-' : ''
 
 const componentTemplate = fs.readFileSync(
   path.resolve(__dirname, `./templates/${memoized}${styled}component.mustache`),
-  'utf-8'
+  'utf-8',
 )
 
 const COMPONENTS = [
-  "Autocomplete", "Button", "IconButton", "ButtonGroup", "Checkbox", "Fab", "RadioGroup", "Rating",
-  "Select", "Slider", "Switch", "TextField", "ToggleButtonGroup", 
+  'Autocomplete',
+  'Button',
+  'IconButton',
+  'ButtonGroup',
+  'Checkbox',
+  'Fab',
+  'RadioGroup',
+  'Rating',
+  'Select',
+  'Slider',
+  'Switch',
+  'TextField',
+  'ToggleButtonGroup',
 
-  "FormControl", "FormControlLabel", "InputLabel",
-  
-  "Avatar", "Badge", "Chip", "Divider", "List", "ListItem", "ListItemButton", "ListItemAvatar", "ListItemIcon", "ListItemText",
-  "TableContainer", "Table", "TableHead", "TableRow", "TableCell", "TableBody",
-  "Tooltip", "Typography",
+  'FormControl',
+  'FormControlLabel',
+  'InputLabel',
 
-  "Alert", "Backdrop", "Dialog", "DialogTitle", "CircularProgress", "Skeleton", "Snackbar", "SnackbarContent",
+  'Avatar',
+  'Badge',
+  'Chip',
+  'Divider',
+  'List',
+  'ListItem',
+  'ListItemButton',
+  'ListItemAvatar',
+  'ListItemIcon',
+  'ListItemText',
+  'TableContainer',
+  'Table',
+  'TableHead',
+  'TableRow',
+  'TableCell',
+  'TableBody',
+  'Tooltip',
+  'Typography',
 
-  "Accordion", "AccordionActions", "AccordionSummary", "AccordionDetails", "AppBar", "Toolbar", "Card",
-  "CardActions", "CardContent", "Paper",
+  'Alert',
+  'Backdrop',
+  'Dialog',
+  'DialogTitle',
+  'CircularProgress',
+  'Skeleton',
+  'Snackbar',
+  'SnackbarContent',
 
-  "BottomNavigation", "BottomNavigationAction", "Breadcrumbs", "Drawer", "Link", "Menu", "MenuItem", "Pagination",
-  "SpeedDial", "SpeedDialIcon", "SpeedDialAction", "Step", "Stepper", "StepLabel", "Tab", "Tabs",
+  'Accordion',
+  'AccordionActions',
+  'AccordionSummary',
+  'AccordionDetails',
+  'AppBar',
+  'Toolbar',
+  'Card',
+  'CardActions',
+  'CardContent',
+  'Paper',
 
-  "Box", "Container", "Stack", "ImageList", "ImageListItem",
+  'BottomNavigation',
+  'BottomNavigationAction',
+  'Breadcrumbs',
+  'Drawer',
+  'Link',
+  'Menu',
+  'MenuItem',
+  'Pagination',
+  'SpeedDial',
+  'SpeedDialIcon',
+  'SpeedDialAction',
+  'Step',
+  'Stepper',
+  'StepLabel',
+  'Tab',
+  'Tabs',
 
-  "Modal", "Popover", "Popper", "Collapse"
+  'Box',
+  'Container',
+  'Stack',
+  'ImageList',
+  'ImageListItem',
+
+  'Modal',
+  'Popover',
+  'Popper',
+  'Collapse',
 ]
 
-const componentsDir = path.join(__dirname, 'components');
+const componentsDir = path.join(__dirname, 'components')
 
 if (!fs.existsSync(componentsDir)) {
   fs.mkdirSync(componentsDir, { recursive: true })
@@ -57,7 +121,7 @@ COMPONENTS.forEach((component) => {
   const files = fs.readdirSync(componentPath).filter((file) => file.endsWith('.tsx'))
   indexContent = indexContent.concat(
     files.map((file) => `export * from './${file.replace('.tsx', '')}/${file.replace('.tsx', '')}';`).join('\n'),
-    '\n'
+    '\n',
   )
 })
 
