@@ -3,8 +3,11 @@ import * as path from 'path'
 
 import Mustache from 'mustache'
 
+const styled = process.argv.find((val) => val === '--styled') ? 'styled-' : '';
+const memoized = process.argv.find((val) => val === '--memoized') ? 'memoized-' : '';
+
 const componentTemplate = fs.readFileSync(
-  path.resolve(__dirname, './templates/component.mustache'),
+  path.resolve(__dirname, `./templates/${memoized}${styled}component.mustache`),
   'utf-8'
 )
 
