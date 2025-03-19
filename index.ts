@@ -9,16 +9,37 @@ const FLAGS = ['--styled', '--memoized']
 const styled = process.argv.find((val) => val === '--styled') ? 'styled-' : ''
 const memoized = process.argv.find((val) => val === '--memoized') ? 'memoized-' : ''
 
-const hasDir = process.argv.find((val) => val === '--dir')
-let dir = __dirname
-if (hasDir) {
-  const indexOfDirFlag = process.argv.indexOf('--dir')
-  const flagValue = process.argv[indexOfDirFlag + 1]
-  if (!flagValue && !FLAGS.includes(flagValue)) throw new Error('Invalid directory value!')
-  dir = flagValue
-} else {
-  throw new Error('Missing directory flag!, please add: "--dir" followed by directory.')
+// #region [Flag] dir
+const [dirValue, dirError] = getFlagAndValue('--dir')
+if (dirError) {
+  throw dirError
 }
+const dir = dirValue ?? __dirname
+// #endregion
+
+// #region [Flag] directive
+const [directiveValue, directiveError] = getFlagAndValue('--directive')
+if (directiveError) {
+  throw dirError
+}
+const directive = directiveValue || null
+
+// #region getFlagAndValue
+type FlagAndValueSuccess = [string | null, null]
+type FlagAndValueFailed = [null, Error]
+function getFlagAndValue(flag: string, required: boolean = false): FlagAndValueSuccess | FlagAndValueFailed {
+  const hasFlag = process.argv.find((val) => val === flag)
+  if (hasFlag) {
+    const indexOfDirFlag = process.argv.indexOf(flag)
+    const flagValue = process.argv[indexOfDirFlag + 1]
+    if (!flagValue && !FLAGS.includes(flagValue)) return [null, new Error(`Invalid ${flag} value!`)]
+    return [flagValue, null]
+  } else {
+    if (required) return [null, new Error(`Missing ${flag} flag!, please add: "${flag}".`)]
+  }
+  return [null, null]
+}
+// #endregion
 
 const componentTemplate = fs.readFileSync(
   path.resolve(__dirname, `./templates/${memoized}${styled}component.mustache`),
@@ -125,6 +146,7 @@ COMPONENTS.forEach((component) => {
     prefix: 'Mui',
     customName: `Styled${component}`,
     name: component,
+    directive,
   })
   fs.writeFileSync(path.join(componentPath, `${component}.tsx`), content)
 })
