@@ -49,8 +49,11 @@ if (hasDir) {
     const indexOfDirFlag = process.argv.indexOf('--dir');
     const flagValue = process.argv[indexOfDirFlag + 1];
     if (!flagValue && !FLAGS.includes(flagValue))
-        throw new Error('invalid directory value');
+        throw new Error('Invalid directory value!');
     dir = flagValue;
+}
+else {
+    throw new Error('Missing directory flag!, please add: "--dir" followed by directory.');
 }
 const componentTemplate = fs.readFileSync(path.resolve(__dirname, `./templates/${memoized}${styled}component.mustache`), 'utf-8');
 const COMPONENTS = [

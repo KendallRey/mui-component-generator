@@ -2,11 +2,11 @@
 A generator for MUI components in ReactJS
 
 ## Note
-No need to install this one, just run via npx.
+No need for `npm install`, just run via `npx` and make sure to use `--dir` flag.
 
 ## Run Command
 ```bash
-npx mui-component-generator
+npx mui-component-generator --dir "D:\KR\New folder"
 ```
 
 ## Flags

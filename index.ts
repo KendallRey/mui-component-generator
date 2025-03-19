@@ -10,12 +10,14 @@ const styled = process.argv.find((val) => val === '--styled') ? 'styled-' : ''
 const memoized = process.argv.find((val) => val === '--memoized') ? 'memoized-' : ''
 
 const hasDir = process.argv.find((val) => val === '--dir')
-let dir = __dirname;
-if(hasDir){
-  const indexOfDirFlag = process.argv.indexOf('--dir');
-  const flagValue = process.argv[indexOfDirFlag+1];
-  if(!flagValue && !FLAGS.includes(flagValue)) throw new Error('invalid directory value')
-  dir = flagValue;
+let dir = __dirname
+if (hasDir) {
+  const indexOfDirFlag = process.argv.indexOf('--dir')
+  const flagValue = process.argv[indexOfDirFlag + 1]
+  if (!flagValue && !FLAGS.includes(flagValue)) throw new Error('Invalid directory value!')
+  dir = flagValue
+} else {
+  throw new Error('Missing directory flag!, please add: "--dir" followed by directory.')
 }
 
 const componentTemplate = fs.readFileSync(
