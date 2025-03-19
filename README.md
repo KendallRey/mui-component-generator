@@ -10,6 +10,11 @@ npx mui-component-generator
 ```
 
 ## Flags
+- `--dir` Generate files to specific directory: **Don't forget the quotation marks "\directory".**
+```bash
+npx mui-component-generator --dir "D:\KR\New folder"
+```
+
 - `--styled` Add styled components, see example below:
 ```tsx
 import React from 'react';

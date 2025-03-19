@@ -4,8 +4,19 @@ import * as path from 'path'
 
 import Mustache from 'mustache'
 
+const FLAGS = ['--styled', '--memoized']
+
 const styled = process.argv.find((val) => val === '--styled') ? 'styled-' : ''
 const memoized = process.argv.find((val) => val === '--memoized') ? 'memoized-' : ''
+
+const hasDir = process.argv.find((val) => val === '--dir')
+let dir = __dirname;
+if(hasDir){
+  const indexOfDirFlag = process.argv.indexOf('--dir');
+  const flagValue = process.argv[indexOfDirFlag+1];
+  if(!flagValue && !FLAGS.includes(flagValue)) throw new Error('invalid directory value')
+  dir = flagValue;
+}
 
 const componentTemplate = fs.readFileSync(
   path.resolve(__dirname, `./templates/${memoized}${styled}component.mustache`),
@@ -99,7 +110,7 @@ const COMPONENTS = [
   'Collapse',
 ]
 
-const componentsDir = path.join(__dirname, 'components')
+const componentsDir = path.join(dir, 'components')
 
 if (!fs.existsSync(componentsDir)) {
   fs.mkdirSync(componentsDir, { recursive: true })
