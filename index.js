@@ -63,27 +63,28 @@ const mustache_1 = __importDefault(require('mustache'))
 const FLAGS = ['--styled', '--memoized']
 const styled = process.argv.find((val) => val === '--styled') ? 'styled-' : ''
 const memoized = process.argv.find((val) => val === '--memoized') ? 'memoized-' : ''
-// #region dir
+// #region [Flag] dir
 const [dirValue, dirError] = getFlagAndValue('--dir')
 if (dirError) {
   throw dirError
 }
-let dir = dirValue !== null && dirValue !== void 0 ? dirValue : __dirname
+const dir = dirValue !== null && dirValue !== void 0 ? dirValue : __dirname
 // #endregion
+// #region [Flag] directive
 const [directiveValue, directiveError] = getFlagAndValue('--directive')
 if (directiveError) {
   throw dirError
 }
-let directive = directiveValue || null
+const directive = directiveValue || null
 function getFlagAndValue(flag, required = false) {
   const hasFlag = process.argv.find((val) => val === flag)
   if (hasFlag) {
     const indexOfDirFlag = process.argv.indexOf(flag)
     const flagValue = process.argv[indexOfDirFlag + 1]
-    if (!flagValue && !FLAGS.includes(flagValue)) [null, new Error(`Invalid ${flag} value!`)]
+    if (!flagValue && !FLAGS.includes(flagValue)) return [null, new Error(`Invalid ${flag} value!`)]
     return [flagValue, null]
   } else {
-    if (required) [null, new Error(`Missing ${flag} flag!, please add: "${flag}".`)]
+    if (required) return [null, new Error(`Missing ${flag} flag!, please add: "${flag}".`)]
   }
   return [null, null]
 }
