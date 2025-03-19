@@ -30,6 +30,7 @@
     "url": "git+https://github.com/KendallRey/mui-component-generator.git"
   },
   "files": [
+    "templates/",
     "index.js",
     "index.ts",
     "LICENSE",
