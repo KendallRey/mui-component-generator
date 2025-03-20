@@ -2,14 +2,19 @@
 A generator for MUI components in ReactJS
 
 ## Note
-No need to install this one, just run via npx.
+No need for `npm install`, just run and install via `npx` and make sure to use `--dir` flag.
 
 ## Run Command
 ```bash
-npx mui-component-generator
+npx mui-component-generator --dir "D:\KR\New folder"
 ```
 
 ## Flags
+- `--dir` Generate files to specific directory: **Don't forget the quotation marks "\directory".**
+```bash
+npx mui-component-generator --dir "D:\KR\New folder"
+```
+
 - `--styled` Add styled components, see example below:
 ```tsx
 import React from 'react';
@@ -38,4 +43,19 @@ export const MuiButton: React.FC<MuiButtonProps> = memo((props) => <Button {...p
 ```
 ```bash
 npx mui-component-generator --memoized
+```
+
+- `--directive` Add directive at the top of the file, see example below: **Don't forget the quotation marks "'use client;'".**
+```tsx
+'use client'; // adds this part
+import React from 'react';
+import { Button, ButtonProps } from '@mui/material';
+
+type MuiButtonProps = ButtonProps;
+
+export const MuiButton: React.FC<MuiButtonProps> = (props) => <Button {...props} />;
+
+```
+```bash
+npx mui-component-generator --directive "'use client';"
 ```
