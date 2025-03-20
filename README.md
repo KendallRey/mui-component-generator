@@ -3,10 +3,28 @@ A generator for MUI components in ReactJS
 
 ## Note
 No need for `npm install`, just run and install via `npx` and make sure to use `--dir` flag.
+Change the value of `--dir` to directory you want to generate components in.
 
 ## Run Command
 ```bash
 npx mui-component-generator --dir "D:\KR\New folder"
+```
+Command above will generate:
+```
+.../  
+│── New folder/  
+│   │── components/  
+│   │   │── Accordion/
+│   │   │   │── Accordion.tsx
+│   │   │── AccordionActions/
+│   │   │   │── AccordionActions.tsx
+│   │   │── AccordionDetails/
+│   │   │   │── AccordionDetails.tsx
+│   │   │── AccordionSummary/
+│   │   │   │── AccordionSummary.tsx
+│   │   │── .../
+│   │── index.tsx
+│
 ```
 
 ## Flags
