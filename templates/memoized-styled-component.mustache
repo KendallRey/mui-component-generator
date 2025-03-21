@@ -7,7 +7,7 @@ import { styled, {{name}}, {{name}}Props } from '@mui/material';
 type {{customName}}Props = {{name}}Props;
 
 export const {{customName}} = memo(
-  styled(({ ...props }: {{prefix}}{{name}}Props) => (<{{name}} {...props} />))(({ theme }) => ({}))
+  styled(({ ...props }: {{customName}}Props) => (<{{name}} {...props} />))(({ theme }) => ({}))
 );
 
 type {{prefix}}{{name}}Props = {{customName}}Props;
