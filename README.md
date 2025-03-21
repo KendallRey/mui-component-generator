@@ -23,7 +23,7 @@ Command above will generate:
 │   │   │── AccordionSummary/
 │   │   │   │── AccordionSummary.tsx
 │   │   │── .../
-│   │── │──index.tsx
+│   │── │── index.tsx
 │
 ```
 
