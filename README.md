@@ -50,8 +50,23 @@ export const MuiButton: React.FC<MuiButtonProps> = (props) => <StyledButton {...
 npx mui-component-generator --styled
 ```
 
+- `--prefix` Adds prefix to components' name, see example below:
+  - **default**: `Mui`
+```tsx
+import React from 'react';
+import { Button, ButtonProps } from '@mui/material';
+
+type ReyButtonProps = ButtonProps;
+
+export const ReyButton: React.FC<ReyButtonProps> = (props) => <Button {...props} />;
+```
+```bash
+npx mui-component-generator --prefix "Ken"
+```
+
 - `--styled-prefix` Adds prefix to styled components' name, see example below:
-  - `--styled`: **required**
+  - **default**: `Styled`
+  - **required**: [`--styled`] 
 ```tsx
 import React from 'react';
 import { styled, Button, ButtonProps } from '@mui/material';

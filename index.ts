@@ -9,6 +9,7 @@ const FLAG = {
   STYLED: '--styled',
   MEMOIZED: '--memoized',
   DIRECTIVE: '----directive',
+  PREFIX: '--prefix',
   STYLED_PREFIX: '--styled-prefix',
 }
 
@@ -32,12 +33,23 @@ if (directiveError) {
 }
 const directive = directiveValue || null
 
+// #region [Flag] prefix
+const [prefixValue, prefixError] = getFlagAndValue(FLAG.PREFIX)
+if (prefixError) {
+  throw prefixError
+}
+const prefix = prefixValue || 'Mui'
+
 // #region [Flag] styled-prefix
 const [styledPrefixValue, styledPrefixError] = getFlagAndValue(FLAG.STYLED_PREFIX)
 if (styledPrefixError) {
-  throw dirError
+  throw styledPrefixError
 }
 const styledPrefix = styledPrefixValue || 'Styled'
+
+if (prefixValue == styledPrefixValue) {
+  throw new Error('--prefix and --styled-prefix must not have the same value!')
+}
 
 // #region getFlagAndValue
 type FlagAndValueSuccess = [string | null, null]
@@ -158,7 +170,7 @@ COMPONENTS.forEach((component) => {
   const componentPath = path.join(componentsDir, component)
   fs.mkdirSync(componentPath, { recursive: true })
   const content = Mustache.render(componentTemplate, {
-    prefix: 'Mui',
+    prefix,
     customName: `${styledPrefix}${component}`,
     name: component,
     directive,
