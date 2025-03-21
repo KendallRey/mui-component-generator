@@ -1,6 +1,6 @@
 {
   "name": "mui-component-generator",
-  "version": "0.0.7",
+  "version": "0.0.11",
   "description": "An MUI (Material-UI) component generator for React.JS ",
   "main": "index.ts",
   "scripts": {

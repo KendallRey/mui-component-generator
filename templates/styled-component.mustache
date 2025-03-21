@@ -4,11 +4,13 @@
 import React from 'react';
 import { styled, {{name}}, {{name}}Props } from '@mui/material';
 
-type {{prefix}}{{name}}Props = {{name}}Props;
+type {{customName}}Props = {{name}}Props;
 
-export const {{customName}} = styled(({ ...props }: {{prefix}}{{name}}Props) => (
+export const {{customName}} = styled(({ ...props }: {{customName}}Props) => (
 <{{name}} {...props} />
 ))(({ theme }) => ({}))
+
+type {{prefix}}{{name}}Props = {{customName}}Props;
 
 export const {{prefix}}{{name}}: React.FC<{{prefix}}{{name}}Props> = (props) => <{{customName}} {...props} />;
 

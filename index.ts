@@ -4,13 +4,22 @@ import * as path from 'path'
 
 import Mustache from 'mustache'
 
-const FLAGS = ['--styled', '--memoized']
+const FLAG = {
+  DIR: '--dir',
+  STYLED: '--styled',
+  MEMOIZED: '--memoized',
+  DIRECTIVE: '----directive',
+  PREFIX: '--prefix',
+  STYLED_PREFIX: '--styled-prefix',
+}
 
-const styled = process.argv.find((val) => val === '--styled') ? 'styled-' : ''
-const memoized = process.argv.find((val) => val === '--memoized') ? 'memoized-' : ''
+const FLAGS = Object.values(FLAG)
+
+const styled = process.argv.find((val) => val === FLAG.STYLED) ? 'styled-' : ''
+const memoized = process.argv.find((val) => val === FLAG.MEMOIZED) ? 'memoized-' : ''
 
 // #region [Flag] dir
-const [dirValue, dirError] = getFlagAndValue('--dir')
+const [dirValue, dirError] = getFlagAndValue(FLAG.DIR)
 if (dirError) {
   throw dirError
 }
@@ -18,11 +27,29 @@ const dir = dirValue ?? __dirname
 // #endregion
 
 // #region [Flag] directive
-const [directiveValue, directiveError] = getFlagAndValue('--directive')
+const [directiveValue, directiveError] = getFlagAndValue(FLAG.DIRECTIVE)
 if (directiveError) {
   throw dirError
 }
 const directive = directiveValue || null
+
+// #region [Flag] prefix
+const [prefixValue, prefixError] = getFlagAndValue(FLAG.PREFIX)
+if (prefixError) {
+  throw prefixError
+}
+const prefix = prefixValue || 'Mui'
+
+// #region [Flag] styled-prefix
+const [styledPrefixValue, styledPrefixError] = getFlagAndValue(FLAG.STYLED_PREFIX)
+if (styledPrefixError) {
+  throw styledPrefixError
+}
+const styledPrefix = styledPrefixValue || 'Styled'
+
+if ((prefixValue != null || styledPrefixValue != null) && prefixValue == styledPrefixValue) {
+  throw new Error('--prefix and --styled-prefix must not have the same value!')
+}
 
 // #region getFlagAndValue
 type FlagAndValueSuccess = [string | null, null]
@@ -143,8 +170,8 @@ COMPONENTS.forEach((component) => {
   const componentPath = path.join(componentsDir, component)
   fs.mkdirSync(componentPath, { recursive: true })
   const content = Mustache.render(componentTemplate, {
-    prefix: 'Mui',
-    customName: `Styled${component}`,
+    prefix,
+    customName: `${styledPrefix}${component}`,
     name: component,
     directive,
   })
