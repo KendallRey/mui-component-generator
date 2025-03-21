@@ -47,7 +47,7 @@ if (styledPrefixError) {
 }
 const styledPrefix = styledPrefixValue || 'Styled'
 
-if (prefixValue == styledPrefixValue) {
+if ((prefixValue != null || styledPrefixValue != null) && prefixValue == styledPrefixValue) {
   throw new Error('--prefix and --styled-prefix must not have the same value!')
 }
 
