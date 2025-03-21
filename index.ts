@@ -32,6 +32,13 @@ if (directiveError) {
 }
 const directive = directiveValue || null
 
+// #region [Flag] styled-prefix
+const [styledPrefixValue, styledPrefixError] = getFlagAndValue(FLAG.STYLED_PREFIX)
+if (styledPrefixError) {
+  throw dirError
+}
+const styledPrefix = styledPrefixValue || 'Styled'
+
 // #region getFlagAndValue
 type FlagAndValueSuccess = [string | null, null]
 type FlagAndValueFailed = [null, Error]
@@ -152,7 +159,7 @@ COMPONENTS.forEach((component) => {
   fs.mkdirSync(componentPath, { recursive: true })
   const content = Mustache.render(componentTemplate, {
     prefix: 'Mui',
-    customName: `Styled${component}`,
+    customName: `${styledPrefix}${component}`,
     name: component,
     directive,
   })

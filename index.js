@@ -60,22 +60,35 @@ Object.defineProperty(exports, '__esModule', { value: true })
 const fs = __importStar(require('fs'))
 const path = __importStar(require('path'))
 const mustache_1 = __importDefault(require('mustache'))
-const FLAGS = ['--styled', '--memoized']
-const styled = process.argv.find((val) => val === '--styled') ? 'styled-' : ''
-const memoized = process.argv.find((val) => val === '--memoized') ? 'memoized-' : ''
+const FLAG = {
+  DIR: '--dir',
+  STYLED: '--styled',
+  MEMOIZED: '--memoized',
+  DIRECTIVE: '----directive',
+  STYLED_PREFIX: '--styled-prefix',
+}
+const FLAGS = Object.values(FLAG)
+const styled = process.argv.find((val) => val === FLAG.STYLED) ? 'styled-' : ''
+const memoized = process.argv.find((val) => val === FLAG.MEMOIZED) ? 'memoized-' : ''
 // #region [Flag] dir
-const [dirValue, dirError] = getFlagAndValue('--dir')
+const [dirValue, dirError] = getFlagAndValue(FLAG.DIR)
 if (dirError) {
   throw dirError
 }
 const dir = dirValue !== null && dirValue !== void 0 ? dirValue : __dirname
 // #endregion
 // #region [Flag] directive
-const [directiveValue, directiveError] = getFlagAndValue('--directive')
+const [directiveValue, directiveError] = getFlagAndValue(FLAG.DIRECTIVE)
 if (directiveError) {
   throw dirError
 }
 const directive = directiveValue || null
+// #region [Flag] styled-prefix
+const [styledPrefixValue, styledPrefixError] = getFlagAndValue(FLAG.STYLED_PREFIX)
+if (styledPrefixError) {
+  throw dirError
+}
+const styledPrefix = styledPrefixValue || 'Styled'
 function getFlagAndValue(flag, required = false) {
   const hasFlag = process.argv.find((val) => val === flag)
   if (hasFlag) {
@@ -181,7 +194,7 @@ COMPONENTS.forEach((component) => {
   fs.mkdirSync(componentPath, { recursive: true })
   const content = mustache_1.default.render(componentTemplate, {
     prefix: 'Mui',
-    customName: `Styled${component}`,
+    customName: `${styledPrefix}${component}`,
     name: component,
     directive,
   })

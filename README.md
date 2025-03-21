@@ -50,6 +50,24 @@ export const MuiButton: React.FC<MuiButtonProps> = (props) => <StyledButton {...
 npx mui-component-generator --styled
 ```
 
+- `--styled-prefix` Adds prefix to styled components' name, see example below:
+  - `--styled`: **required**
+```tsx
+import React from 'react';
+import { styled, Button, ButtonProps } from '@mui/material';
+
+type MuiButtonProps = ButtonProps;
+
+export const KenButton = styled(({ ...props }: MuiButtonProps) => ( // concat the prefix to component name
+<Button {...props} />
+))(({ theme }) => ({}))
+
+export const MuiButton: React.FC<MuiButtonProps> = (props) => <KenButton {...props} />;
+```
+```bash
+npx mui-component-generator --styled --styled-prefix "Ken"
+```
+
 - `--memoized` Wraps components in memo, see example below:
 ```tsx
 import React, { memo } from 'react';
