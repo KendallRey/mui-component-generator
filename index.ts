@@ -4,13 +4,21 @@ import * as path from 'path'
 
 import Mustache from 'mustache'
 
-const FLAGS = ['--styled', '--memoized']
+const FLAG = {
+  DIR: '--dir',
+  STYLED: '--styled',
+  MEMOIZED: '--memoized',
+  DIRECTIVE: '----directive',
+  STYLED_PREFIX: '--styled-prefix',
+}
 
-const styled = process.argv.find((val) => val === '--styled') ? 'styled-' : ''
-const memoized = process.argv.find((val) => val === '--memoized') ? 'memoized-' : ''
+const FLAGS = Object.values(FLAG)
+
+const styled = process.argv.find((val) => val === FLAG.STYLED) ? 'styled-' : ''
+const memoized = process.argv.find((val) => val === FLAG.MEMOIZED) ? 'memoized-' : ''
 
 // #region [Flag] dir
-const [dirValue, dirError] = getFlagAndValue('--dir')
+const [dirValue, dirError] = getFlagAndValue(FLAG.DIR)
 if (dirError) {
   throw dirError
 }
@@ -18,7 +26,7 @@ const dir = dirValue ?? __dirname
 // #endregion
 
 // #region [Flag] directive
-const [directiveValue, directiveError] = getFlagAndValue('--directive')
+const [directiveValue, directiveError] = getFlagAndValue(FLAG.DIRECTIVE)
 if (directiveError) {
   throw dirError
 }
