@@ -2,15 +2,19 @@
 {{{ directive }}}
 {{ /directive }}
 import React from 'react';
-import { styled, {{name}}, {{name}}Props } from '@mui/material';
+import { styled, {{name}}, {{name}}Props{{ #exports }}, {{{ exports }}}{{ /exports }} } from '@mui/material';
 
-type {{customName}}Props = {{name}}Props;
+type {{customName}}Props{{ #typeGenerics }}<{{{ typeGenerics }}}>{{ /typeGenerics }} = {{name}}Props{{ #typeGenericsApplied }}<{{{ typeGenericsApplied }}}>{{ /typeGenericsApplied }};
 
-export const {{customName}} = styled(({ ...props }: {{customName}}Props) => (
+export const {{customName}} = styled({{#componentTypes}}<{{{componentTypes}}},>{{/componentTypes}}({ ...props }: {{customName}}Props{{#componentTypes}}<{{{componentTypes}}}>{{/componentTypes}}) => (
 <{{name}} {...props} />
-))(({ theme }) => ({}))
+))(({ theme }) => ({})){{#assertStyledComponent}} as typeof {{name}}{{/assertStyledComponent}}
 
-type {{prefix}}{{name}}Props = {{customName}}Props;
+type {{prefix}}{{name}}Props{{ #typeGenerics }}<{{{ typeGenerics }}}>{{ /typeGenerics }} = {{customName}}Props{{ #typeGenericsApplied }}<{{{ typeGenericsApplied }}}>{{ /typeGenericsApplied }};
 
+{{^componentTypes}}  
 export const {{prefix}}{{name}}: React.FC<{{prefix}}{{name}}Props> = (props) => <{{customName}} {...props} />;
-
+{{/componentTypes}}
+{{#componentTypes}}  
+export const {{prefix}}{{name}} = <{{componentTypes}},>(props: {{prefix}}{{name}}Props<{{componentTypes}}>) => <{{customName}} {...props} />;
+{{/componentTypes}}

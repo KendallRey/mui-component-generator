@@ -8,7 +8,7 @@ const FLAG = {
   DIR: '--dir',
   STYLED: '--styled',
   MEMOIZED: '--memoized',
-  DIRECTIVE: '----directive',
+  DIRECTIVE: '--directive',
   PREFIX: '--prefix',
   STYLED_PREFIX: '--styled-prefix',
 }
@@ -73,8 +73,35 @@ const componentTemplate = fs.readFileSync(
   'utf-8',
 )
 
-const COMPONENTS = [
-  'Autocomplete',
+type ComponentConfig = {
+  name: string
+  exports?: string[]
+  typeGenerics?: string[]
+  typeGenericsApplied?: string[]
+  styledTypeGenerics?: string[]
+  styledTypeGenericsApplied?: string[]
+  componentTypes?: string[]
+  assertStyledComponent?: boolean
+  useFC?: boolean
+}
+
+type ComponentSetup = ComponentConfig | string
+
+const COMPONENTS: ComponentSetup[] = [
+  {
+    name: 'Autocomplete',
+    exports: ['ChipTypeMap'],
+    typeGenerics: [
+      'T',
+      'Multiple extends boolean | undefined = false',
+      'DisableClearable extends boolean | undefined = false',
+      'FreeSolo extends boolean | undefined = false',
+      "ChipComponent extends React.ElementType = ChipTypeMap['defaultComponent']",
+    ],
+    typeGenericsApplied: ['T', 'Multiple', 'DisableClearable', 'FreeSolo', 'ChipComponent'],
+    componentTypes: ['T'],
+    assertStyledComponent: true,
+  },
   'Button',
   'IconButton',
   'ButtonGroup',
@@ -115,6 +142,8 @@ const COMPONENTS = [
   'Backdrop',
   'Dialog',
   'DialogTitle',
+  'DialogActions',
+  'DialogContent',
   'CircularProgress',
   'Skeleton',
   'Snackbar',
@@ -166,21 +195,45 @@ if (!fs.existsSync(componentsDir)) {
   fs.mkdirSync(componentsDir, { recursive: true })
 }
 
+// #region deconstructComponentSetup
+function deconstructComponentSetup(component: ComponentSetup) {
+  if (typeof component === 'object') {
+    const { name, exports, typeGenerics, typeGenericsApplied, componentTypes, ...otherProps } = component
+    return {
+      componentName: name,
+      exports: exports?.length ? exports.join(',') : null,
+      typeGenerics: typeGenerics?.length ? typeGenerics.join(',') : null,
+      typeGenericsApplied: typeGenericsApplied?.length ? typeGenericsApplied.join(',') : null,
+      componentTypes: componentTypes?.length ? componentTypes.join(',') : null,
+      ...otherProps,
+    }
+  }
+  return {
+    componentName: component,
+  }
+}
+// #endregion
+
 COMPONENTS.forEach((component) => {
-  const componentPath = path.join(componentsDir, component)
+  const { componentName, ...otherProps } = deconstructComponentSetup(component)
+
+  const componentPath = path.join(componentsDir, componentName)
   fs.mkdirSync(componentPath, { recursive: true })
   const content = Mustache.render(componentTemplate, {
     prefix,
-    customName: `${styledPrefix}${component}`,
-    name: component,
+    customName: `${styledPrefix}${componentName}`,
+    name: componentName,
     directive,
+    ...otherProps,
   })
-  fs.writeFileSync(path.join(componentPath, `${component}.tsx`), content)
+  fs.writeFileSync(path.join(componentPath, `${componentName}.tsx`), content)
 })
 
 let indexContent = ''
 COMPONENTS.forEach((component) => {
-  const componentPath = path.join(componentsDir, component)
+  const componentName = typeof component === 'object' ? component.name : component
+
+  const componentPath = path.join(componentsDir, componentName)
   const files = fs.readdirSync(componentPath).filter((file) => file.endsWith('.tsx'))
   indexContent = indexContent.concat(
     files.map((file) => `export * from './${file.replace('.tsx', '')}/${file.replace('.tsx', '')}';`).join('\n'),
