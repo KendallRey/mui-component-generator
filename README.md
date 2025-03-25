@@ -52,7 +52,7 @@ export const MuiButton: React.FC<MuiButtonProps> = (props) => <StyledButton {...
 ```
 <hr/>
 
-- `--prefix` Adds prefix to components' name, see example below:
+- `--prefix` Modifies prefix to components' name, see example below:
   - **default**: `Mui`
 ```bash
 npx mui-component-generator --prefix "Rey"
@@ -67,7 +67,7 @@ export const ReyButton: React.FC<ReyButtonProps> = (props) => <Button {...props}
 ```
 <hr/>
 
-- `--styled-prefix` Adds prefix to styled components' name, see example below:
+- `--styled-prefix` Modifies prefix to styled components' name, see example below:
   - **default**: `Styled`
   - **required**: [`--styled`] 
 ```bash
@@ -101,7 +101,7 @@ export const MuiButton: React.FC<MuiButtonProps> = memo((props) => <Button {...p
 ```
 <hr/>
 
-- `--directive` Add directive at the top of the file, see example below: **Don't forget the quotation marks "'use client;'".**
+- `--directive` Adds directive at the top of the file, see example below: **Don't forget the quotation marks "'use client;'".**
 ```bash
 npx mui-component-generator --directive "'use client';"
 ```
