@@ -1,5 +1,5 @@
 # Mui Component Generator (in Development)
-A generator for MUI components in ReactJS
+A generator for MUI components in ReactJS, to kickstart your customizable components from start.
 
 ## Note
 No need for `npm install`, just run and install via `npx` and make sure to use `--dir` flag.
@@ -42,9 +42,9 @@ npx mui-component-generator --styled
 import React from 'react';
 import { styled, Button, ButtonProps } from '@mui/material';
 
-type MuiButtonProps = ButtonProps;
+type StyledButtonProps = ButtonProps;
 
-export const StyledButton = styled(({ ...props }: MuiButtonProps) => (
+export const StyledButton = styled(({ ...props }: StyledButtonProps) => (
 <Button {...props} />
 ))(({ theme }) => ({}))
 
@@ -61,13 +61,13 @@ npx mui-component-generator --prefix "Rey"
 import React from 'react';
 import { Button, ButtonProps } from '@mui/material';
 
-type ReyButtonProps = ButtonProps;
+type ReyButtonProps = ButtonProps; // modifies the prefix of component type
 
-export const ReyButton: React.FC<ReyButtonProps> = (props) => <Button {...props} />;
+export const ReyButton: React.FC<ReyButtonProps> = (props) => <Button {...props} />; // modifies the prefix of component name
 ```
 <hr/>
 
-- `--styled-prefix` Modifies prefix to styled components' name, see example below:
+- `--styled-prefix` Modifies prefix to styled components' name and type, see example below:
   - **default**: `Styled`
   - **required**: [`--styled`] 
 ```bash
@@ -77,9 +77,9 @@ npx mui-component-generator --styled --styled-prefix "Ken"
 import React from 'react';
 import { styled, Button, ButtonProps } from '@mui/material';
 
-type MuiButtonProps = ButtonProps;
+type KenButtonProps = ButtonProps; // modifies the prefix of styled component type
 
-export const KenButton = styled(({ ...props }: MuiButtonProps) => ( // concat the prefix to component name
+export const KenButton = styled(({ ...props }: KenButtonProps) => ( // modifies the prefix of styled component name
 <Button {...props} />
 ))(({ theme }) => ({}))
 
@@ -114,4 +114,32 @@ type MuiButtonProps = ButtonProps;
 
 export const MuiButton: React.FC<MuiButtonProps> = (props) => <Button {...props} />;
 
+```
+<hr/>
+
+- `--type-overrides` Generates type declaration file overrides **mui.d.ts**, see example below:
+  - **Only**: [`Color`, `Size`, `Variant`] - depends whether a component supports such override/s.
+```bash
+npx mui-component-generator --type-overrides
+```
+```tsx
+import {} from '@mui/material/AvatarGroup';
+declare module '@mui/material/AvatarGroup' {
+  interface AvatarGroupPropsVariantOverrides { }
+}
+
+import {} from '@mui/material/Badge';
+declare module '@mui/material/Badge' {
+  interface BadgePropsColorOverrides { }
+  interface BadgePropsVariantOverrides { }
+}
+
+import {} from '@mui/material/Button';
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides { }
+  interface ButtonPropsSizeOverrides { }
+  interface ButtonPropsVariantOverrides { }
+}
+
+...
 ```
