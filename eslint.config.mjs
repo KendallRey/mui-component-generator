@@ -33,7 +33,7 @@ export default defineConfig([globalIgnores(["node_modules", "components", "**/in
     ignores: [
       "/node_modules",
       "/components",
-      "index.js",
+      "**/*.js",
     ],
 
     languageOptions: {
