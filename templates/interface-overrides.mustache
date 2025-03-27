@@ -1,0 +1,6 @@
+import {} from '@mui/material/{{name}}';
+declare module '@mui/material/{{ name }}' {
+  {{ #properties }}
+  interface {{ name }}Props{{.}}Overrides { }
+  {{ /properties }}
+}
