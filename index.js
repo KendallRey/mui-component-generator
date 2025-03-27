@@ -51,6 +51,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const mustache_1 = __importDefault(require("mustache"));
+const generators_1 = require("./utils/generators");
 const FLAG = {
     DIR: '--dir',
     STYLED: '--styled',
@@ -58,10 +59,12 @@ const FLAG = {
     DIRECTIVE: '--directive',
     PREFIX: '--prefix',
     STYLED_PREFIX: '--styled-prefix',
+    TYPE_OVERRIDES: '--type-overrides',
 };
 const FLAGS = Object.values(FLAG);
 const styled = process.argv.find((val) => val === FLAG.STYLED) ? 'styled-' : '';
 const memoized = process.argv.find((val) => val === FLAG.MEMOIZED) ? 'memoized-' : '';
+const hasTypeOverrides = process.argv.find((val) => val === FLAG.TYPE_OVERRIDES) ? true : false;
 // #region [Flag] dir
 const [dirValue, dirError] = getFlagAndValue(FLAG.DIR);
 if (dirError) {
@@ -298,3 +301,8 @@ COMPONENTS.forEach((component) => {
     indexContent = indexContent.concat(files.map((file) => `export * from './${file.replace('.tsx', '')}/${file.replace('.tsx', '')}';`).join('\n'), '\n');
 });
 fs.writeFileSync(path.join(componentsDir, `index.tsx`), indexContent);
+// #region [--type-overrides]
+if (hasTypeOverrides) {
+    (0, generators_1.generateTypeDeclarationOverrides)(componentsDir);
+}
+// #endregion

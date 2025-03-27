@@ -1,17 +1,19 @@
 {
   "name": "mui-component-generator",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "An MUI (Material-UI) component generator for React.JS ",
   "main": "index.ts",
   "scripts": {
-    "start": "npx ts-node index.ts",
+    "start": "node index.js",
+    "start:ts": "npx ts-node index.ts",
     "build": "tsc",
     "lint": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\"",
     "prettier": "prettier --write \"**/*.{js,ts,jsx,tsx}\"",
     "fix": "npm run lint -- --fix && npm run lint && npm run prettier",
     "format": "npm run lint && npm run prettier",
+    "test:unpack": "tar -xvf mui-component-generator-0.1.2.tgz",
     "prepublish": "npm run build && npm run lint -- --fix && npm run format",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run format && npm run build && npm run start"
   },
   "bin": {
     "mui-component-generator": "index.js"
@@ -33,8 +35,8 @@
   },
   "files": [
     "templates/",
+    "utils/**/*.js",
     "index.js",
-    "index.ts",
     "LICENSE",
     "README.md"
   ],

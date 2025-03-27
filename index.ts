@@ -3,6 +3,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 
 import Mustache from 'mustache'
+import { generateTypeDeclarationOverrides } from './utils/generators'
 
 const FLAG = {
   DIR: '--dir',
@@ -11,12 +12,14 @@ const FLAG = {
   DIRECTIVE: '--directive',
   PREFIX: '--prefix',
   STYLED_PREFIX: '--styled-prefix',
+  TYPE_OVERRIDES: '--type-overrides',
 }
 
 const FLAGS = Object.values(FLAG)
 
 const styled = process.argv.find((val) => val === FLAG.STYLED) ? 'styled-' : ''
 const memoized = process.argv.find((val) => val === FLAG.MEMOIZED) ? 'memoized-' : ''
+const hasTypeOverrides = process.argv.find((val) => val === FLAG.TYPE_OVERRIDES) ? true : false
 
 // #region [Flag] dir
 const [dirValue, dirError] = getFlagAndValue(FLAG.DIR)
@@ -302,3 +305,9 @@ COMPONENTS.forEach((component) => {
 })
 
 fs.writeFileSync(path.join(componentsDir, `index.tsx`), indexContent)
+
+// #region [--type-overrides]
+if (hasTypeOverrides) {
+  generateTypeDeclarationOverrides(componentsDir)
+}
+// #endregion
