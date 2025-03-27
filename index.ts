@@ -26,7 +26,7 @@ const [dirValue, dirError] = getFlagAndValue(FLAG.DIR)
 if (dirError) {
   throw dirError
 }
-const dir = dirValue ?? __dirname
+const dir = dirValue ?? process.cwd() ?? __dirname
 // #endregion
 
 // #region [Flag] directive

@@ -47,6 +47,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
@@ -70,7 +71,7 @@ const [dirValue, dirError] = getFlagAndValue(FLAG.DIR);
 if (dirError) {
     throw dirError;
 }
-const dir = dirValue !== null && dirValue !== void 0 ? dirValue : __dirname;
+const dir = (_a = dirValue !== null && dirValue !== void 0 ? dirValue : process.cwd()) !== null && _a !== void 0 ? _a : __dirname;
 // #endregion
 // #region [Flag] directive
 const [directiveValue, directiveError] = getFlagAndValue(FLAG.DIRECTIVE);
