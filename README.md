@@ -1,40 +1,51 @@
-# Mui Component Generator (in Development)
-A generator for MUI components in ReactJS, to kickstart your customizable components from start.
+# Mui Component Generator
+A generator for MUI components in ReactJS, to kickstart your customizable components.
 
 ## Note
-No need for `npm install`, just run and install via `npx` and make sure to use `--dir` flag.
-Change the value of `--dir` to directory you want to generate components in.
+No need for `npm install`, just run and install via `npx`.<br/>
+**THIS MIGHT REWRITE YOUR CHANGES!, make sure to commit before running this command**.
 
-## Run Command (change the dir value!)
+## Run Command
 ```bash
-npx mui-component-generator --dir "D:\KR\New folder"
+npx mui-component-generator
 ```
 Command above will generate:
-```
-.../  
-│── New folder/  
-│   │── components/  
-│   │   │── Accordion/
-│   │   │   │── Accordion.tsx
-│   │   │── AccordionActions/
-│   │   │   │── AccordionActions.tsx
-│   │   │── AccordionDetails/
-│   │   │   │── AccordionDetails.tsx
-│   │   │── AccordionSummary/
-│   │   │   │── AccordionSummary.tsx
-│   │   │── .../
-│   │── │── index.tsx
-│
+```ts
+│── components/  
+│   │── Accordion/
+│   │   │── Accordion.tsx
+│   │── AccordionActions/
+│   │   │── AccordionActions.tsx
+│   │── AccordionDetails/
+│   │   │── AccordionDetails.tsx
+│   │── AccordionSummary/
+│   │   │── AccordionSummary.tsx
+│   │── .../
+│   └── index.tsx
 ```
 
 ## Flags
-- `--dir` Generate files to specific directory: **Don't forget the quotation marks "\directory".**
+### `--dir`
+- Generate files to specific directory: **Don't forget the quotation marks "\directory".**
+- **default**: Current directory in terminal.
 ```bash
 npx mui-component-generator --dir "D:\KR\New folder"
 ```
+```ts
+D/
+│── KR/
+│   │── New folder/
+│   │   │── components/  
+│   │   │   │── Accordion/
+│   │   │   │── AccordionActions/
+│   │   │   │── AccordionDetails/
+│   │   │   │── .../
+│   │   │   └── index.tsx
+```
 <hr/>
 
-- `--styled` Add styled components, see example below:
+### `--styled`
+- Add styled components, see example below:
 ```bash
 npx mui-component-generator --styled
 ```
@@ -52,8 +63,9 @@ export const MuiButton: React.FC<MuiButtonProps> = (props) => <StyledButton {...
 ```
 <hr/>
 
-- `--prefix` Modifies prefix to components' name, see example below:
-  - **default**: `Mui`
+### `--prefix`
+- Modifies prefix to components' name, see example below:
+- **default**: `Mui`
 ```bash
 npx mui-component-generator --prefix "Rey"
 ```
@@ -67,9 +79,10 @@ export const ReyButton: React.FC<ReyButtonProps> = (props) => <Button {...props}
 ```
 <hr/>
 
-- `--styled-prefix` Modifies prefix to styled components' name and type, see example below:
-  - **default**: `Styled`
-  - **required**: [`--styled`] 
+### `--styled-prefix`
+- Modifies prefix to styled components' name and type, see example below:
+- **default**: `Styled`
+- **required**: [`--styled`] 
 ```bash
 npx mui-component-generator --styled --styled-prefix "Ken"
 ```
@@ -87,7 +100,8 @@ export const MuiButton: React.FC<MuiButtonProps> = (props) => <KenButton {...pro
 ```
 <hr/>
 
-- `--memoized` Wraps components in memo, see example below:
+### `--memoized`
+- Wraps components in memo, see example below:
 ```bash
 npx mui-component-generator --memoized
 ```
@@ -101,7 +115,8 @@ export const MuiButton: React.FC<MuiButtonProps> = memo((props) => <Button {...p
 ```
 <hr/>
 
-- `--directive` Adds directive at the top of the file, see example below: **Don't forget the quotation marks "'use client;'".**
+### `--directive`
+- Adds directive at the top of the file, see example below: **Don't forget the quotation marks "'use client;'".**
 ```bash
 npx mui-component-generator --directive "'use client';"
 ```
@@ -117,8 +132,9 @@ export const MuiButton: React.FC<MuiButtonProps> = (props) => <Button {...props}
 ```
 <hr/>
 
-- `--type-overrides` Generates type declaration file overrides **mui.d.ts**, see example below:
-  - **Only**: [`Color`, `Size`, `Variant`] - depends whether a component supports such override/s.
+### `--type-overrides`
+- Generates type declaration file overrides **mui.d.ts**, see example below:
+- **Only**: [`Color`, `Size`, `Variant`] - depends whether a component supports such override/s.
 ```bash
 npx mui-component-generator --type-overrides
 ```
